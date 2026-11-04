@@ -65,3 +65,6 @@ create table if not exists public.business_settings (
  max_booking_days integer not null default 30 check (max_booking_days between 1 and 365),
  updated_at timestamptz not null default now()
 );
+
+-- RPCs for authenticated availability lookup and atomic booking.
+-- See live database functions get_available_slots() and create_booking().
