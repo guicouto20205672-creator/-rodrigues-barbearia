@@ -31,6 +31,8 @@ for select to anon, authenticated using (active = true);
 drop policy if exists "clients read own profile" on public.profiles;
 create policy "clients read own profile" on public.profiles
 for select to authenticated using ((select auth.uid()) = id);
+create policy "admins read client profiles" on public.profiles
+for select to authenticated using ((select private.is_admin()));
 
 drop policy if exists "clients create own client profile" on public.profiles;
 create policy "clients create own client profile" on public.profiles
@@ -45,6 +47,10 @@ with check ((select auth.uid()) = id and role in ('client','admin'));
 drop policy if exists "clients read own appointments" on public.appointments;
 create policy "clients read own appointments" on public.appointments
 for select to authenticated using ((select auth.uid()) = client_id);
+create policy "admins read all appointments" on public.appointments
+for select to authenticated using ((select private.is_admin()));
+create policy "admins update appointments" on public.appointments
+for update to authenticated using ((select private.is_admin())) with check ((select private.is_admin()));
 
 drop policy if exists "clients create own appointments" on public.appointments;
 create policy "clients create own appointments" on public.appointments
