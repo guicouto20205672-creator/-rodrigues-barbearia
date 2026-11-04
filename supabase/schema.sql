@@ -47,3 +47,21 @@ create index if not exists appointments_barber_start_idx on public.appointments(
 -- IMPORTANTE: antes de produção, habilite RLS e aplique políticas restritivas por papel.
 -- A oferta FIFO, o prazo de 5 minutos e a aceitação atômica devem ser implementados em função server-side.
 -- Nunca exponha a chave service_role no navegador. WhatsApp requer provedor/API oficial configurado.
+-- Configurações editáveis pelo proprietário. A agenda usa America/Sao_Paulo por padrão.
+create table if not exists public.business_settings (
+ id boolean primary key default true check (id = true),
+ timezone text not null default 'America/Sao_Paulo',
+ opening_hours jsonb not null default '{
+  "monday":{"enabled":false,"open":"08:00","close":"18:00","break_start":"","break_end":""},
+  "tuesday":{"enabled":false,"open":"08:00","close":"18:00","break_start":"","break_end":""},
+  "wednesday":{"enabled":false,"open":"08:00","close":"18:00","break_start":"","break_end":""},
+  "thursday":{"enabled":false,"open":"08:00","close":"18:00","break_start":"","break_end":""},
+  "friday":{"enabled":false,"open":"08:00","close":"18:00","break_start":"","break_end":""},
+  "saturday":{"enabled":false,"open":"08:00","close":"18:00","break_start":"","break_end":""},
+  "sunday":{"enabled":false,"open":"08:00","close":"12:00","break_start":"","break_end":""}
+ }'::jsonb,
+ slot_interval_minutes integer not null default 15 check (slot_interval_minutes between 5 and 120),
+ min_booking_notice_hours integer not null default 1 check (min_booking_notice_hours between 0 and 720),
+ max_booking_days integer not null default 30 check (max_booking_days between 1 and 365),
+ updated_at timestamptz not null default now()
+);
