@@ -98,3 +98,6 @@ drop policy if exists "admins manage services" on public.services;
 create policy "admins manage services" on public.services for all to authenticated using ((select private.is_admin())) with check ((select private.is_admin()));
 drop policy if exists "admins manage barbers" on public.barbers;
 create policy "admins manage barbers" on public.barbers for all to authenticated using ((select private.is_admin())) with check ((select private.is_admin()));
+
+-- Booking RPCs: authenticated clients only. Both functions validate auth.uid().
+-- The exclusion constraint on appointments remains the final concurrency guard.
