@@ -4,3 +4,5 @@
 .catalog-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 0;border-top:1px solid #ffffff20}.catalog-row span{display:flex;flex-direction:column;gap:4px}.catalog-row small{color:#aaa;font-size:11px}.small-btn{padding:7px 11px;font-size:11px;white-space:nowrap}
 
 .appointment-row{align-items:center}.appointment-row span{min-width:0}.appointment-row small{line-height:1.5}.appointment-row b{line-height:1.5}
+
+.booking-service-picker{margin-bottom:18px}.field-title{display:block;margin-bottom:8px;color:#c7bda9;font-size:11px}.booking-service-options{display:grid;gap:9px}.booking-service-option{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;text-align:left;cursor:pointer;padding:14px;background:#101010;border:1px solid #45413a;color:#eee;font:inherit}.booking-service-option small{color:#c5a66d;white-space:nowrap}.booking-service-option.is-selected{border-color:#c5a66d;background:#2a2419;box-shadow:inset 3px 0 #c5a66d}.booking-service-option:focus-visible{outline:2px solid #c5a66d;outline-offset:2px}
