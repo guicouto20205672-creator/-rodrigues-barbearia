@@ -37,9 +37,10 @@ create policy "clients create own client profile" on public.profiles
 for insert to authenticated with check ((select auth.uid()) = id and role = 'client');
 
 drop policy if exists "clients update own contact details" on public.profiles;
-create policy "clients update own contact details" on public.profiles
+drop policy if exists "users update own contact details" on public.profiles;
+create policy "users update own contact details" on public.profiles
 for update to authenticated using ((select auth.uid()) = id)
-with check ((select auth.uid()) = id and role = 'client');
+with check ((select auth.uid()) = id and role in ('client','admin'));
 
 drop policy if exists "clients read own appointments" on public.appointments;
 create policy "clients read own appointments" on public.appointments
