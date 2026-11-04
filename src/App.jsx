@@ -17,7 +17,7 @@ export default function App(){
    const {data,error}=await supabase.auth.signUp({email:form.email,password:form.password,options:{data:{full_name:form.full_name,phone:form.phone}}});if(error)throw error;
    setNotice(data.session?'Cadastro realizado! Sua conta está pronta.':'Cadastro enviado! Confira seu e-mail para confirmar a conta e depois entre.');
    if(data.session)setPage('account');
-  }else if(authMode==='login){const {error}=await supabase.auth.signInWithPassword({email:form.email,password:form.password});if(error)throw error;setPage('account');}
+  }else if(authMode==='login'){const {error}=await supabase.auth.signInWithPassword({email:form.email,password:form.password});if(error)throw error;setPage('account');}
   else {const {error}=await supabase.auth.resetPasswordForEmail(form.email,{redirectTo:window.location.origin});if(error)throw error;setNotice('Enviamos as instruções de recuperação para seu e-mail.');}
  }catch(err){setNotice(err.message||'Não foi possível concluir. Tente novamente.');}finally{setAuthBusy(false);}}
  async function saveProfile(e){e.preventDefault();if(!session?.user)return;setAuthBusy(true);const {error}=await supabase.from('profiles').update({full_name:profile?.full_name||'',phone:profile?.phone||''}).eq('id',session.user.id);setAuthBusy(false);setNotice(error?error.message:'Dados atualizados com sucesso.');}
