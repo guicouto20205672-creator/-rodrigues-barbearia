@@ -8,3 +8,10 @@
 .booking-service-picker{margin-bottom:18px}.field-title{display:block;margin-bottom:8px;color:#c7bda9;font-size:11px}.booking-service-options{display:grid;gap:9px}.booking-service-option{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation;pointer-events:auto;position:relative;z-index:2;width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;text-align:left;cursor:pointer;padding:14px;background:#101010;border:1px solid #45413a;color:#eee;font:inherit}.booking-service-option small{color:#c5a66d;white-space:nowrap}.booking-service-option.is-selected{border-color:#c5a66d;background:#2a2419;box-shadow:inset 3px 0 #c5a66d}.booking-service-option:focus-visible{outline:2px solid #c5a66d;outline-offset:2px}
 
 .booking-service-option span,.booking-service-option small{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;pointer-events:none}
+
+
+/* Cards de serviço: área inteira clicável e sem seleção acidental de texto no celular. */
+.service-select{width:100%;min-width:0;text-align:left;color:inherit;font:inherit;cursor:pointer;touch-action:manipulation;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;appearance:none;-webkit-appearance:none;}
+.service-select *{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;pointer-events:none;}
+.service-select:active,.service-select:focus-visible{border-color:#c5a66d;background:#211d16;outline:none;}
+.service-cta{display:block;margin-top:14px;color:#c5a66d;font-size:10px;letter-spacing:1px;text-transform:uppercase;}
