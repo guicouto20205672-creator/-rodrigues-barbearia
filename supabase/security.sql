@@ -66,3 +66,28 @@ for insert to authenticated with check (
 
 -- No client-facing policies for waitlist_offers: all offer dispatch/response
 -- must go through trusted server-side code after authenticating the user.
+
+-- Configurações administrativas e catálogo editável pelo proprietário.
+alter table public.business_settings enable row level security;
+revoke all on public.business_settings from anon, authenticated;
+grant select on public.business_settings to anon, authenticated;
+grant insert, update on public.business_settings to authenticated;
+
+create or replace function private.is_admin()
+returns boolean language sql stable security definer set search_path = ''
+as $$ select exists (select 1 from public.profiles p where p.id=(select auth.uid()) and p.role='admin'); $$;
+revoke all on function private.is_admin() from public, anon;
+grant execute on function private.is_admin() to authenticated;
+
+drop policy if exists "business settings are publicly readable" on public.business_settings;
+create policy "business settings are publicly readable" on public.business_settings for select to anon, authenticated using (true);
+drop policy if exists "admins create business settings" on public.business_settings;
+create policy "admins create business settings" on public.business_settings for insert to authenticated with check ((select private.is_admin()));
+drop policy if exists "admins update business settings" on public.business_settings;
+create policy "admins update business settings" on public.business_settings for update to authenticated using ((select private.is_admin())) with check ((select private.is_admin()));
+
+grant insert, update, delete on public.services, public.barbers to authenticated;
+drop policy if exists "admins manage services" on public.services;
+create policy "admins manage services" on public.services for all to authenticated using ((select private.is_admin())) with check ((select private.is_admin()));
+drop policy if exists "admins manage barbers" on public.barbers;
+create policy "admins manage barbers" on public.barbers for all to authenticated using ((select private.is_admin())) with check ((select private.is_admin()));
