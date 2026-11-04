@@ -7,7 +7,8 @@ const dayNames=[['monday','Segunda-feira'],['tuesday','Terça-feira'],['wednesda
 const defaultHours=Object.fromEntries(dayNames.map(([key])=>[key,{enabled:false,open:'08:00',close:'18:00',break_start:'',break_end:''}]));
 
 export default function App(){
- const [page,setPage]=useState('home'),[menu,setMenu]=useState(false),[service,setService]=useState(''),[notice,setNotice]=useState('');\n const [businessId,setBusinessId]=useState(null);
+ const [page,setPage]=useState('home'),[menu,setMenu]=useState(false),[service,setService]=useState(''),[notice,setNotice]=useState('');
+ const [businessId,setBusinessId]=useState(null);
  const [selectedBarber,setSelectedBarber]=useState(''),[bookingDate,setBookingDate]=useState(new Date().toLocaleDateString('en-CA')), [availableSlots,setAvailableSlots]=useState([]),[bookingBusy,setBookingBusy]=useState(false);
  const [businessSettings,setBusinessSettings]=useState({opening_hours:defaultHours,slot_interval_minutes:15,min_booking_notice_hours:1,max_booking_days:30,timezone:'America/Sao_Paulo'});
  const [settingsBusy,setSettingsBusy]=useState(false),[services,setServices]=useState([]),[barbers,setBarbers]=useState([]);
